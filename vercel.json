@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "server/index.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/api/metrics", "dest": "/server/index.js" },
+    { "src": "/(.*)", "dest": "/frontend/$1" }
+  ]
+}

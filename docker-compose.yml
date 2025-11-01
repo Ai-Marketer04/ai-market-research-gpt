@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: mrp_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+  server:
+    build: .
+    container_name: mrp_server
+    restart: unless-stopped
+    environment:
+      - PORT=4000
+      - DATA_PROVIDER=FMP
+      - FMP_API_KEY=${FMP_API_KEY}
+      - REDIS_URL=redis://redis:6379
+    ports:
+      - "4000:4000"
+    depends_on:
+      - redis
